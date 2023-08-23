@@ -1,0 +1,14 @@
+{
+  "nav-menu": {
+    "main": "Main",
+    "servers": "Game Servers",
+    "projects": "My Projects",
+    "about": "Contact Information",
+    "login": "Sign in"
+  },
+  "footer": {
+    "language": {
+      "select": "Select language"
+    }
+  }
+}
