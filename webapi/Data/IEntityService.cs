@@ -7,7 +7,7 @@ namespace webapi.Data
         public int Add(T entity);
         public bool Delete(T entity);
         public bool Update(T entity);
-        public T Get();
+        public T Get(int id);
         public IEnumerable<T> GetAll();
     }
 }

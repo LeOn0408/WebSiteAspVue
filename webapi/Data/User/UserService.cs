@@ -1,5 +1,6 @@
 ﻿using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Tokens;
+using Pomelo.EntityFrameworkCore.MySql.Query.Internal;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Security.Cryptography;
@@ -29,9 +30,9 @@ namespace webapi.Data.User
             throw new NotImplementedException();
         }
 
-        public UserDto Get()
+        public UserDto Get(int id)
         {
-            throw new NotImplementedException();
+            return _applicationContext.Users.FirstOrDefault(u => u.Id == id) ?? throw new InvalidOperationException();
         }
 
         public IEnumerable<UserDto> GetAll()

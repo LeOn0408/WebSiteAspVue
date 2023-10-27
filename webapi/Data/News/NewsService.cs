@@ -23,7 +23,7 @@ namespace webapi.Data.News
             throw new NotImplementedException();
         }
 
-        public NewsDto Get()
+        public NewsDto Get(int id)
         {
             throw new NotImplementedException();
         }

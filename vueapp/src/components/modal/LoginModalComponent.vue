@@ -59,7 +59,12 @@
                     return;
                     
                 }
-                this.auth({ username: this.username, password:this.password });
+                this.auth({ username: this.username, password: this.password }).then(result => {
+                    if (result) {
+                        //TODO: Implement a complete authorization method
+                        location.reload();
+                    }
+                });
             }
         },
     });

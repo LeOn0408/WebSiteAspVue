@@ -5,6 +5,7 @@ namespace webapi.Data.Dto.User
 {
     public class AuthenticatedUser
     {
+        public int Id { get; set; }
         public string? JwtToken { get; private set; }
         [JsonIgnore]
         public RefreshToken? RefreshToken { get; private set; }
@@ -14,14 +15,18 @@ namespace webapi.Data.Dto.User
 
         [JsonIgnore]
         public bool IsUserValid { get; }
+        [JsonIgnore]
+        public bool IsAdmin { get; }
 
         private UserDto? _user;
 
         public AuthenticatedUser(UserDto userDto)
         {
+            Id = userDto.Id;
             Email = userDto.Email;
             Username = userDto.UserName;
             IsUserValid = true;
+            IsAdmin = userDto.IsAdmin;
             _user = userDto;
         }
 

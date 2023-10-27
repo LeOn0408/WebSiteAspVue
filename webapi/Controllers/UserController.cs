@@ -1,74 +1,44 @@
 ﻿using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
-using Microsoft.IdentityModel.Tokens;
-using System;
-using System.IdentityModel.Tokens.Jwt;
-using System.Security.Claims;
-using webapi.Data.Dto;
-using webapi.Data.Dto.News;
 using webapi.Data.Dto.User;
 using webapi.Data.User;
+using webapi.Filter;
 
-namespace webapi.Controllers
+namespace webapi.Controllers;
+
+[Route("api/user")]
+[ApiController]
+public class UserController : ControllerBase
 {
-    [Route("api/user")]
-    [ApiController]
-    public class UserController : ControllerBase
+    private IUserService _userService;
+    private IConfiguration _configuration;
+
+    public UserController(IUserService userService, IConfiguration configuration)
     {
-        private readonly IUserService _userService;
-        private readonly IConfiguration _configuration;
-        private readonly AuthenticateService _authenticateService;
-
-        public UserController(IUserService userService,IConfiguration configuration, AuthenticateService authenticateService)
-        {
-            _userService = userService;
-            _configuration = configuration;
-            _authenticateService = authenticateService;
-        }
-
-        [Route("authenticate")]
-        [HttpPost]
-        public ActionResult<AuthenticatedUser> GetAuthentification(AuthorizationData authorization)
-        {
-            var authenticatedUser = _authenticateService.GetAuthenticatedUser(authorization.Username, authorization.HashPass);
-            if (!authenticatedUser.IsUserValid)
-            {
-                return Unauthorized(authenticatedUser.ErrorMessage);
-            }
-            HttpContext.Response.Cookies.Append(".AspCore.Refresh.Token", authenticatedUser?.RefreshToken?.Token.ToString(),
-                new CookieOptions
-                {
-                    MaxAge = authenticatedUser?.RefreshToken?.TokenExpiryDate - DateTime.Now
-                });
-            return authenticatedUser;
-        }
-
-        [Route("refresh-token")]
-        [HttpPost]
-        public ActionResult<AuthenticatedUser> AuthenticateByRefreshToken()
-        {
-            var token = HttpContext.Request.Cookies[".AspCore.Refresh.Token"];
-            var authenticatedUser = _authenticateService.GetAuthenticatedUserByRefreshToken(token);
-            if (!authenticatedUser.IsUserValid)
-            {
-                return Unauthorized(authenticatedUser.ErrorMessage);
-            }
-            HttpContext.Response.Cookies.Append(".AspCore.Refresh.Token", authenticatedUser?.RefreshToken?.Token.ToString(),
-                new CookieOptions
-                {
-                    MaxAge = authenticatedUser?.RefreshToken?.TokenExpiryDate - DateTime.Now
-                });
-            return authenticatedUser;
-        }
-        [Authorize]
-        [HttpGet][Route("validate")]
-        public IActionResult Validate()
-        {
-            return Ok("API Validated");
-        }
-
+        _userService = userService;
+        _configuration = configuration;
     }
-    public record AuthorizationData(string Username, string HashPass);
+
+    [Authorize]
+    [HttpGet]
+    public ActionResult<UserDto> Get(int id)
+    {
+        try
+        {
+            return _userService.Get(id);
+        }
+        catch (Exception ex)
+        {
+            return BadRequest(ex.Message);
+        }
+    }
+
+    [Authorize(Roles = "admin")]
+    [HttpGet][Route("isadmin")]
+    public ActionResult<bool> CheckAdmin()
+    {
+        
+        return true;
+    }
 }

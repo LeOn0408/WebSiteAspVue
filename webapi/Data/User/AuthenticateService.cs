@@ -52,14 +52,18 @@ namespace webapi.Data.User
                 return new AuthenticatedUser("Недействительный токен");
             }
             var authenticatedUser = new AuthenticatedUser(user);
-            authenticatedUser.SetJwtToken(GetJwtToken(user.UserName));
+            authenticatedUser.SetJwtToken(GetJwtToken(user));
             authenticatedUser.SetRefreshToken(CreateRefreshToken(authenticatedUser));
             return authenticatedUser;
         }
-        private JwtSecurityToken GetJwtToken(string login)
+        private JwtSecurityToken GetJwtToken(UserDto user)
         {
             AuthOptions authOptions = new(_configuration);
-            var claims = new List<Claim> { new Claim(ClaimTypes.Name, login) };
+            var claims = new List<Claim> {
+                new Claim(ClaimTypes.Name, user.UserName),
+                //TODO: Add role
+                new Claim(ClaimTypes.Role, user.IsAdmin?"admin":"")
+            };
             var jwt = new JwtSecurityToken(
                     issuer: authOptions.Issuer,
             audience: authOptions.Audience,
@@ -69,6 +73,7 @@ namespace webapi.Data.User
 
             return jwt;
         }
+
         private RefreshToken CreateRefreshToken(AuthenticatedUser user) 
         {
             var token = new RefreshToken();
@@ -97,7 +102,7 @@ namespace webapi.Data.User
         private AuthenticatedUser GetAuthenticateAdmin(string hashPassword)
         {
             string passwordSystem = _configuration.GetSection("SecurityPass").Value ?? throw new Exception("SecurityPass not specified");
-            var admin = _applicationContext.Users.FirstOrDefault(x => x.UserName == "admin");
+            UserDto admin = _applicationContext.Users.FirstOrDefault(x => x.UserName == "admin");
             if (admin == null)
             {
 
@@ -112,7 +117,12 @@ namespace webapi.Data.User
                     admin.FirstName ??= admin.UserName;
                     admin.LastName ??= admin.UserName;
                     _applicationContext.Users.Add(admin);
-                    _applicationContext.SaveChanges();
+                    if (_applicationContext.SaveChanges() > 0)
+                    {
+                        return new AuthenticatedUser(admin);
+                    }
+
+                    return new AuthenticatedUser("Error when creating an account");
                 }
                 else
                 {

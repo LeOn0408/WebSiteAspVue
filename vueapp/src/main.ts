@@ -7,7 +7,10 @@ import { createStore } from 'vuex'
 import { createI18n } from 'vue-i18n'
 import ru from './locales/ru.json';
 import en from './locales/en.json';
-import authModule from './modules/main/authModule';
+import authModule from './store/modules/auth.module';
+import userModule from './store/modules/user.module'
+import { createAxios } from './lib/factory';
+
 
 //TODO:Implement localization
 const localeFromStorage = localStorage.getItem('userLocale');
@@ -25,13 +28,17 @@ const i18n = createI18n({
 })
 
 
+const instance = createAxios();
+
 const store = createStore({
     modules: {
         auth: authModule,
+        user: userModule
     },
     state() {
         return {
-            preferredLocale: preferredLocale
+            preferredLocale: preferredLocale,
+            axios: instance
         };
     },
     mutations: {

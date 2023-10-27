@@ -1,17 +1,8 @@
-﻿<!--<template>
-    <nav>
-        <router-link to="/">Главная</router-link>--> <!--| <router-link to="/about">About</router-link> |-->
-        <!--<router-link to="/contact">Contact</router-link>-->
-    <!--</nav>
-    <main>
-        <router-view />
-    </main>
-</template>-->
-<template>
+﻿<template>
     <div class="position-relative page-wrapper">
         <div class="position-relative">
             <div class="admin-panel">
-
+                <AdminPanel></AdminPanel>
             </div>
             <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
                 <Navigation></Navigation>
@@ -44,10 +35,12 @@
     import { defineComponent } from "vue";
     import { mapState } from 'vuex';
     import Navigation from "./components/NavigationComponent.vue";
+    import AdminPanel from "./components/AdminPanelComponent.vue";
 
     export default defineComponent({
         components: {
-            Navigation
+            Navigation,
+            AdminPanel
         },
         computed: mapState([
             'preferredLocale'

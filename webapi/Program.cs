@@ -10,6 +10,7 @@ using webapi.Data;
 using webapi.Data.Dto.News;
 using webapi.Data.News;
 using webapi.Data.User;
+using webapi.Filter;
 
 var builder = WebApplication.CreateBuilder(args);
 
