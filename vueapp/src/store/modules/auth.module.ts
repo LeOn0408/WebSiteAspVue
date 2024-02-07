@@ -1,6 +1,6 @@
 import { sha256 } from '@/lib/helper';
 import axios from 'axios';
-import { authenticatedUser } from './authenticatedUser'
+import { type authenticatedUser } from './authenticatedUser'
 
 export default {
     state: {

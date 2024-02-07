@@ -1,4 +1,4 @@
-import { IEntity } from "./ientity";
+import { type IEntity } from "./ientity";
 
 export abstract class Entity<T> implements IEntity<T> {
     getList(): Array<T> {
