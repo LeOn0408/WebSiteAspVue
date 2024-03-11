@@ -6,8 +6,8 @@ namespace webapi.Data.Dto.User
     public class RefreshToken
     {
         public int Id { get; set; }
-        public string Token { get; set; }
-        public UserDto User { get; set; }
+        public string? Token { get; set; }
+        public UserDto? User { get; set; }
         public DateTime TokenExpiryDate { get; set; }
     }
 }

@@ -33,8 +33,8 @@ namespace webapi.Data.User
             }
             if (authenticatedUser.IsUserValid)
             {
-                authenticatedUser.SetJwtToken(GetJwtToken(login));
-                authenticatedUser.SetRefreshToken(CreateRefreshToken(authenticatedUser));
+                authenticatedUser.SetJwtToken(GetJwtToken(authenticatedUser.User));
+                authenticatedUser.SetRefreshToken(CreateRefreshToken(authenticatedUser.User));
 
             }
             return authenticatedUser;
@@ -53,16 +53,16 @@ namespace webapi.Data.User
             }
             var authenticatedUser = new AuthenticatedUser(user);
             authenticatedUser.SetJwtToken(GetJwtToken(user));
-            authenticatedUser.SetRefreshToken(CreateRefreshToken(authenticatedUser));
+            authenticatedUser.SetRefreshToken(CreateRefreshToken(user));
             return authenticatedUser;
         }
         private JwtSecurityToken GetJwtToken(UserDto user)
         {
             AuthOptions authOptions = new(_configuration);
             var claims = new List<Claim> {
-                new Claim(ClaimTypes.Name, user.UserName),
+                new(ClaimTypes.Name, user.UserName),
                 //TODO: Add role
-                new Claim(ClaimTypes.Role, user.IsAdmin?"admin":"")
+                new(ClaimTypes.Role, user.IsAdmin?"admin":"")
             };
             var jwt = new JwtSecurityToken(
                     issuer: authOptions.Issuer,
@@ -74,12 +74,14 @@ namespace webapi.Data.User
             return jwt;
         }
 
-        private RefreshToken CreateRefreshToken(AuthenticatedUser user) 
+        private RefreshToken CreateRefreshToken(UserDto user) 
         {
-            var token = new RefreshToken();
-            token.TokenExpiryDate = DateTime.UtcNow.AddDays(30);
-            token.User = user.GetUser();
-            token.Token = Guid.NewGuid().ToString();
+            var token = new RefreshToken
+            {
+                TokenExpiryDate = DateTime.UtcNow.AddDays(30),
+                User = user,
+                Token = Guid.NewGuid().ToString()
+            };
             SaveTokenToDatabase(token);
             return token; 
         }

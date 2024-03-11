@@ -32,12 +32,19 @@ namespace webapi.Controllers
         [HttpPost]
         public ActionResult<AuthenticatedUser> GetAuthentification(AuthorizationData authorization)
         {
-            var authenticatedUser = _authenticateService.GetAuthenticatedUser(authorization.Username, authorization.HashPass);
+            AuthenticatedUser authenticatedUser = _authenticateService.GetAuthenticatedUser(authorization.Username, authorization.HashPass);
+
             if (!authenticatedUser.IsUserValid)
             {
-                return Unauthorized(authenticatedUser.ErrorMessage);
+                return Unauthorized(authenticatedUser?.ErrorMessage ?? "Token receipt error");
             }
-            HttpContext.Response.Cookies.Append(".AspCore.Refresh.Token", authenticatedUser?.RefreshToken?.Token.ToString(),
+            string? token = authenticatedUser?.RefreshToken?.Token ;
+            if(token == null)
+            {
+                return Unauthorized("Token receipt error");
+            }
+
+            HttpContext.Response.Cookies.Append(".AspCore.Refresh.Token",token,
                 new CookieOptions
                 {
                     MaxAge = authenticatedUser?.RefreshToken?.TokenExpiryDate - DateTime.Now

@@ -9,30 +9,25 @@ namespace webapi.Data.Dto.User
         public string? JwtToken { get; private set; }
         [JsonIgnore]
         public RefreshToken? RefreshToken { get; private set; }
-        public string? ErrorMessage { get;}
-        public string? Email { get; }
-        public string? Username { get; }
+
+        public string? ErrorMessage { get;}     
 
         [JsonIgnore]
         public bool IsUserValid { get; }
-        [JsonIgnore]
-        public bool IsAdmin { get; }
 
-        private UserDto? _user;
+        public UserDto? User { get; init; }
 
         public AuthenticatedUser(UserDto userDto)
         {
             Id = userDto.Id;
-            Email = userDto.Email;
-            Username = userDto.UserName;
+            User = userDto;
             IsUserValid = true;
-            IsAdmin = userDto.IsAdmin;
-            _user = userDto;
         }
 
         public AuthenticatedUser(string errorMessage)
         {
             ErrorMessage = errorMessage;
+            User = null;
         }
         public void SetJwtToken(JwtSecurityToken jwt)
         {
@@ -41,10 +36,6 @@ namespace webapi.Data.Dto.User
         public void SetRefreshToken(RefreshToken token)
         {
             RefreshToken = token;
-        }
-        public UserDto GetUser()
-        {
-            return _user;
         }
     }
 }
