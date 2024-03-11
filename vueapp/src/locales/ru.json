@@ -13,6 +13,7 @@
   },
   "login": {
     "username": "Имя пользователя",
-    "password": "Пароль"
+    "password": "Пароль",
+    "submit": "Войти"
   }
 }

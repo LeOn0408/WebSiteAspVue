@@ -1,5 +1,5 @@
 <template>
-    <div class="container-fluid admin">
+    <div class="container-fluid admin" v-if="name !== ''">
         Добро пожаловать, {{name}}!
     </div>
 </template>
