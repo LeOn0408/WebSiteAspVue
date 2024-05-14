@@ -6,6 +6,9 @@ MinimumVisualStudioVersion = 10.0.40219.1
 Project("{54A90642-561A-4BB1-A94E-469ADEE60C69}") = "vueapp", "vueapp\vueapp.esproj", "{2F8C15FE-2E8C-4169-8036-CEE8C165C16A}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "webapi", "webapi\webapi.csproj", "{E6EDEA77-85B9-4EDF-B452-FD61967EDDE4}"
+	ProjectSection(ProjectDependencies) = postProject
+		{2F8C15FE-2E8C-4169-8036-CEE8C165C16A} = {2F8C15FE-2E8C-4169-8036-CEE8C165C16A}
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
