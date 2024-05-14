@@ -2,8 +2,8 @@
 
 namespace webapi.Data.Dto.News
 {
-    [Table("ap_news_tags")]
-    public class NewsTagDto:EntityDto
+    [Table("ap_article_tags")]
+    public class Tag:EntityDto
     {
     }
 }

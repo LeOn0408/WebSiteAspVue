@@ -3,8 +3,8 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace webapi.Data.Dto.News;
 
-[Table("ap_news_sections")]
-public class NewsSectionDto : EntityDto
+[Table("ap_article_sections")]
+public class Section : EntityDto
 {
 
 

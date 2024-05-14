@@ -7,8 +7,8 @@ using Microsoft.AspNetCore.Routing;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using webapi.Data;
+using webapi.Data.Blog;
 using webapi.Data.Dto.News;
-using webapi.Data.News;
 using webapi.Data.User;
 using webapi.Filter;
 
@@ -41,7 +41,7 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme).AddJw
 builder.Services.AddAuthorization();
 
 builder.Services.AddTransient<
-    INewsService, NewsService>();
+    IBlogService, BlogService>();
 builder.Services.AddTransient<
     IUserService, UserService>(); 
 builder.Services.AddTransient<
@@ -75,7 +75,7 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI();
 }
 app.UseCors(x => x
-        .WithOrigins("https://localhost:5002")
+        .WithOrigins("https://localhost:5173")
         .AllowCredentials()
         .AllowAnyMethod()
         .AllowAnyHeader());

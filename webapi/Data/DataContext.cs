@@ -1,12 +1,13 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using webapi.Data.Dto;
+using webapi.Data.Dto.Article;
 using webapi.Data.Dto.News;
 using webapi.Data.Dto.User;
 
 public class DataContext: DbContext
 {
-    public DbSet<NewsDto> News => Set<NewsDto>();
-    public DbSet<NewsSectionDto> NewsType => Set<NewsSectionDto>();
+    public DbSet<ArticleDto> News => Set<ArticleDto>();
+    public DbSet<Section> NewsType => Set<Section>();
     public DbSet<ImageDto> Images => Set<ImageDto>();
     public DbSet<UserDto> Users => Set<UserDto>();
     public DbSet<UserEntity> UsersEntity => Set<UserEntity>();
