@@ -1,16 +1,16 @@
 ﻿<template>
-    
+    <blog></blog>
 </template>
 
 <script lang="ts">
     import { defineComponent, defineAsyncComponent } from 'vue';
-    const News = defineAsyncComponent(() =>
-        import('@/views/news/NewsPublic.vue')
+    const blog = defineAsyncComponent(() =>
+        import('@/views/blog/BlogPublic.vue')
     )
 
     export default defineComponent({
         components: {
-            News
+            blog
         },
     })
     

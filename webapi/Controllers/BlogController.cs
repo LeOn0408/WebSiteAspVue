@@ -19,19 +19,26 @@ public class BlogController : ControllerBase
     }
 
     [HttpGet][Route("get")]
-    public ArticleDto Get()
+    public Article Get()
     {
         throw new NotImplementedException();
     }
 
     [Authorize]
     [HttpPost][Route("add")]
-    public int Add(ArticleDto news)
+    public int Add(Article news)
     {
         int newsId = _blogService.Add(news);
         return newsId;
     }
 
+    [HttpGet]
+    [Route("list")]
+    public List<Article> List(int page, int pageSize) 
+    {
+        List<Article> articles = _blogService.GetArticlesPaginated(page, pageSize).ToList();
+        return articles;
+    }
     //[HttpGet(Name = "GetNewsList")]
     //public IEnumerable<ArticleDto> GetList()
     //{
@@ -41,3 +48,4 @@ public class BlogController : ControllerBase
     //    return newsList;
     //}
 }
+

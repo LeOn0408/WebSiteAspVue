@@ -1,4 +1,4 @@
-
+ï»¿
 
 export default {
     state: {
@@ -9,25 +9,17 @@ export default {
     },
     actions: {
         async getUser(context: any, id:number) {
-            const result = await context.rootState.axios.get(`/api/user?id=${id}`);
-            
-            //const result = await axios.get(`/api/user?id=${id}`);
+            const result = await context.rootState.axios.get(`/api/user?id=${id}`).catch((err:any) => {
+                throw err;
+            });
+           
             return result;
         },
         async isAdmin(context: any, id: number) {
-            try {
-                const result = await context.rootState.axios.get(`/api/user/isadmin`);
-                return result.data;
-            }
-            catch (error: any) {
-                if (error.response && error.response.status === 403) {
-                    console.error('Îøèáêà 403');
-                } else {
-                    console.error(error);
-                }
-                return false;
-            }
-
+            const result = await context.rootState.axios.get(`/api/user/isadmin`).catch((err: any) => {
+                throw err;
+            });
+            return result.data;
         }
     }
 };

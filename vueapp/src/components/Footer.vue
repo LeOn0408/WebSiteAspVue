@@ -35,4 +35,9 @@
 </script>
 
 <style>
+    @media (max-width: 575px) {
+        footer.fixed-bottom {
+            position: static; /* Убираем фиксированное позиционирование для маленьких экранов */
+        }
+    }
 </style>

@@ -1,5 +1,5 @@
 import axios, { type AxiosInstance} from 'axios';
-import { getAuthHeader } from './helper';
+import { Helper } from './helper';
 
 
 export function createAxios(): AxiosInstance {
@@ -8,7 +8,7 @@ export function createAxios(): AxiosInstance {
     instance.defaults.headers.post['Content-Type'] = 'application/json';
     instance.interceptors.request.use(config => {
 
-        config.headers.Authorization = getAuthHeader();
+        config.headers.Authorization = Helper.getAuthHeader();
         return config;
     });
 
@@ -22,12 +22,11 @@ export function createAxios(): AxiosInstance {
                         localStorage.setItem("user", JSON.stringify(result.data));
                         error.config.headers.Authorization = `Bearer ${result.data.jwtToken}`;
                         resolve(instance.request(error.config));
-                    })
-                    .catch((refreshError) => {
-                        console.error(refreshError);
+                    }, reason => {
                         localStorage.removeItem('user');
-                        //reject(refreshError);
-                    });
+                        reject(reason);
+                    }
+                    );
             });
         }
 

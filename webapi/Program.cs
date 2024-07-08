@@ -14,7 +14,9 @@ using webapi.Filter;
 
 var builder = WebApplication.CreateBuilder(args);
 
-builder.Services.AddControllers();
+builder.Services.AddControllers().AddNewtonsoftJson(options =>
+    options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore
+); ;
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme).AddJwtBearer(options =>
@@ -48,6 +50,7 @@ builder.Services.AddTransient<
     AuthenticateService>();
 
 builder.Services.AddCors();
+
 
 
 string connection = builder.Configuration.GetConnectionString("DefaultConnection");

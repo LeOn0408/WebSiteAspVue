@@ -10,5 +10,8 @@
     "language": {
       "select": "Select language"
     }
+  },
+  "article": {
+    "readmore": "Read more..."
   }
 }

@@ -37,7 +37,7 @@
         font-family: 'Yanone Kaffeesatz', sans-serif;
         margin: 0;
         /*background: url(./assets/images/background.png);*/
-        font-size: larger;
+        /*font-size: larger;*/
         /*color: #000000bf;*/
         height:100%
     }
@@ -46,7 +46,11 @@
         flex-direction: column;
         height: 100vh;
     }
-
+    @media (max-width: 575px) {
+        .page-wrapper {
+            height: auto; /* Автоматическая высота для маленьких экранов */
+        }
+    }
     #main-content {
         flex-grow: 1;
         overflow: auto;

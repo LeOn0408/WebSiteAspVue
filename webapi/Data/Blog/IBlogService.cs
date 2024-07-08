@@ -2,8 +2,9 @@
 
 namespace webapi.Data.Blog
 {
-    public interface IBlogService : IEntityService<ArticleDto>
+    public interface IBlogService : IEntityService<Article>
     {
-        IEnumerable<ArticleDto> GetAllForPeriod(DateTime begin, DateTime end);
+        IEnumerable<Article> GetAllForPeriod(DateTime begin, DateTime end);
+        IEnumerable<Article> GetArticlesPaginated(int page, int pageSize);
     }
 }

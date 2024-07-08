@@ -1,4 +1,4 @@
-import { sha256 } from '@/lib/helper';
+import { Helper } from '@/lib/helper';
 import axios from 'axios';
 import { type authenticatedUser } from './authenticatedUser'
 
@@ -15,7 +15,7 @@ export default {
         async login(context: any,
             user: { username: string, password: string }) {
 
-            const hashPass: string = await sha256(user.password);
+            const hashPass: string = await Helper.sha256(user.password);
             try {
                 const result = await axios.post("/api/authenticate", {
                     hashPass,

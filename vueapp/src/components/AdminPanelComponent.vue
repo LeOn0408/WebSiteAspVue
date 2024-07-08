@@ -19,14 +19,18 @@
             }),
             getUser() {
 
-                this.user(5).then(result => {
-                    console.log(result);
-                    this.name=result.data.userName
-                });
-                this.admin().then(result => {
-                    console.log(result);
+                //this.user(5).then(result => {
+                //    console.log(result);
+                //    this.name=result.data.userName
+                //},reason =>{
                     
-                });
+                //});
+                //this.admin().then(result => {
+                //    console.log(result);
+                //},reason =>{
+                    
+                //}
+                //);
 
             }
         },
