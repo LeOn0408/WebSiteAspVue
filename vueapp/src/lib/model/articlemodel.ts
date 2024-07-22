@@ -1,4 +1,8 @@
-export type ArticleModel = {
+export interface ArticleModel {
     id: number;
-    name: string;
+    title: string;
+    createdByUser: any;
+    creationDate: any;
+    section: any;
+    tags: any;
 }

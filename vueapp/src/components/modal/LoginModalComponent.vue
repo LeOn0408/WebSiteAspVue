@@ -45,7 +45,7 @@
             }
         },
         computed: {
-            getTitle():String {
+            getTitle():string {
                 return this.lang('nav-menu.login');
             }
         },

@@ -5,8 +5,7 @@
                 <button type="button"
                         class="btn btn-secondary"
                         data-bs-toggle="modal"
-                        data-bs-target="#modalWindow"
-                        @onclick="getLoginModal">
+                        data-bs-target="#modalWindow">
                     {{ $t('nav-menu.login') }}
                 </button>
             </div>

@@ -27,8 +27,7 @@
                     <button type="button"
                             class="btn btn-outline-light"
                             data-bs-toggle="modal"
-                            data-bs-target="#modalWindow"
-                            @onclick="GetLogin">
+                            data-bs-target="#modalWindow">
                         {{ $t('nav-menu.login') }}
                     </button>
                     <Login></Login>

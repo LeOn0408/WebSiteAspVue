@@ -16,13 +16,13 @@ export class Article implements IEntity<ArticleModel> {
     }
     async getListPeriodAsync(page:number, pageSize:number): Promise<Array<ArticleModel>>{
         try {
-            let result: ArticleModel[] = await axios.get("/api/blog/list", {
+            let result = await axios.get("/api/blog/list", {
                 params: {
                     page: page,
                     pageSize: pageSize
                 }
             });
-            return result;
+            return result.data;
         }
 
         catch (error: any) {

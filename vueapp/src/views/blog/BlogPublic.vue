@@ -26,7 +26,6 @@
                         </span>
                     </p>
                     <p class="card-text" v-html="item.description"></p>
-
                 </div>
                 <div class="card-footer text-muted">
                     <a class="icon-link icon-link-hover" data-bs-toggle="modal" href="#articleModalToggle" role="button" @click="open(item)">
@@ -58,8 +57,8 @@
     export default defineComponent({
         data() {
             return {
-                articles: [],
-                selectArticle: {}
+                articles: [] as any[],//пока any
+                selectArticle: {title:"new"} as any
             }
         },
         components:{        
@@ -72,12 +71,12 @@
             async getArticleList(){
                 const articleService = new Article();
                 let articles = await articleService.getListPeriodAsync(0, 12)           
-                this.articles = articles.data;
+                this.articles = articles;
             },
-            localeDate(date) {
+            localeDate(date:string) {
                 return Helper.FormatDate(date);
             },
-            open(article) {
+            open(article:Object) {
                 this.selectArticle = article;
             }
         },
