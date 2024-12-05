@@ -1,8 +1,8 @@
-﻿using webapi.Data.Dto.News;
+﻿using webapi.Model;
 
-namespace webapi.Data
+namespace webapi.Services
 {
-    public interface IEntityService<T>
+    public interface IEntityService<T> where T : Entity
     {
         public int Add(T entity);
         public bool Delete(T entity);

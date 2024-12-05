@@ -1,9 +1,10 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
-using webapi.Data.Dto.User;
-using webapi.Data.User;
 using webapi.Filter;
+using webapi.Model.DTO;
+using webapi.Model.Entities;
+using webapi.Services.User;
 
 namespace webapi.Controllers;
 
@@ -20,7 +21,7 @@ public class UserController : ControllerBase
         _configuration = configuration;
     }
 
-    [Authorize]
+    //[Authorize]
     [HttpGet]
     public ActionResult<UserDto> Get(int id)
     {

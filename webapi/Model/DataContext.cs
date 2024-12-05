@@ -1,17 +1,15 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using webapi.Data.Dto;
-using webapi.Data.Dto.Article;
-using webapi.Data.Dto.News;
-using webapi.Data.Dto.User;
+using webapi.Model;
+using webapi.Model.Blog;
+using webapi.Model.Entities;
 
 public class DataContext: DbContext
 {
     public DbSet<Article> Articles => Set<Article>();
     public DbSet<Section> ArticleType => Set<Section>();
-    public DbSet<ImageDto> Images => Set<ImageDto>();
-    public DbSet<UserDto> Users => Set<UserDto>();
-    public DbSet<UserEntity> UsersEntity => Set<UserEntity>();
-    public DbSet<RefreshToken> RefreshToken => Set<RefreshToken>();
+    public DbSet<Image> Images => Set<Image>();
+    public DbSet<UserEntity> Users => Set<UserEntity>();
+    public DbSet<RefreshTokenEntity> RefreshToken => Set<RefreshTokenEntity>();
 
     private readonly IConfiguration _configuration;
     public DataContext(DbContextOptions<DataContext> options, IConfiguration configuration)

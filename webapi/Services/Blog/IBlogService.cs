@@ -1,6 +1,7 @@
-﻿using webapi.Data.Dto.Article;
+﻿using webapi.Model.Blog;
+using webapi.Services;
 
-namespace webapi.Data.Blog
+namespace webapi.Services.Blog
 {
     public interface IBlogService : IEntityService<Article>
     {

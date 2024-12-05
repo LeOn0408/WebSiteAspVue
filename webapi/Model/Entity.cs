@@ -1,10 +1,10 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-using webapi.Data.Dto.User;
+using webapi.Model.Entities;
 
-namespace webapi.Data.Dto
+namespace webapi.Model
 {
-    public class EntityDto
+    public class Entity
     {
         [Key]
         [Required]
@@ -12,7 +12,7 @@ namespace webapi.Data.Dto
 
         [Required]
         public required string Title { get; set; }
-        
+
         [Required]
         public DateTime CreationDate { get; set; }
 
@@ -23,10 +23,10 @@ namespace webapi.Data.Dto
         public int LastEditedByUserId { get; set; }
 
         [ForeignKey("CreatedByUserId")]
-        public virtual UserDto CreatedByUser { get; set; }
+        public virtual UserEntity CreatedByUser { get; set; }
 
         [ForeignKey("LastEditedByUserId")]
-        public virtual UserDto LastEditedByUser { get; set; }
+        public virtual UserEntity LastEditedByUser { get; set; }
 
         public bool IsDeleted { get; set; } = false;
     }

@@ -1,15 +1,7 @@
 ﻿using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Configuration;
-using Microsoft.IdentityModel.Tokens;
-using System;
-using System.IdentityModel.Tokens.Jwt;
-using System.Security.Claims;
-using webapi.Data.Dto;
-using webapi.Data.Dto.News;
-using webapi.Data.Dto.User;
-using webapi.Data.User;
+using webapi.Model.User;
+using webapi.Services.User;
 
 namespace webapi.Controllers
 {

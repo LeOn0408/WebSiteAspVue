@@ -1,7 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using webapi.Data.Dto.Article;
+using webapi.Model.Blog;
 
-namespace webapi.Data.Blog
+namespace webapi.Services.Blog
 {
     public class BlogService : IBlogService
     {
@@ -48,18 +48,18 @@ namespace webapi.Data.Blog
         /// <exception cref="ArgumentOutOfRangeException">Page number less than 0</exception>
         public IEnumerable<Article> GetArticlesPaginated(int page, int pageSize)
         {
-            if (page < 0) {  throw new ArgumentOutOfRangeException(); }
+            if (page < 0) { throw new ArgumentOutOfRangeException(); }
 
-            int skip = page == 0 ? page : page -1;
+            int skip = page == 0 ? page : page - 1;
 
             IQueryable<Article> article = _context.Articles
                 .OrderByDescending(a => a.CreationDate)//Реализовать сортировку фильтром
                 .Skip(skip).Take(pageSize)
-                .Include(a=> a.Section)
-                .Include(a=> a.Tags)
-                .Include(a=> a.Image)
-                .Include(a=> a.CreatedByUser)
-                .Include(a=> a.LastEditedByUser);
+                .Include(a => a.Section)
+                .Include(a => a.Tags)
+                .Include(a => a.Image)
+                .Include(a => a.CreatedByUser)
+                .Include(a => a.LastEditedByUser);
             return article;
         }
 

@@ -1,8 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Filters;
 using Microsoft.EntityFrameworkCore;
-using webapi.Data.Dto.User;
-using webapi.Data.User;
+using webapi.Model.Entities;
 
 namespace webapi.Filter
 {
@@ -22,7 +21,7 @@ namespace webapi.Filter
             var token = _applicationContext.RefreshToken.Include(u => u.User).FirstOrDefault(t => t.Token == refreshToken);
             if (token != null)
             {
-                UserDto? user = _applicationContext.Users.FirstOrDefault(x => x.Id == token.User.Id);
+                UserEntity? user = _applicationContext.Users.FirstOrDefault(x => x.Id == token.User.Id);
                 if (user == null || !user.IsAdmin)
                 {
                     context.Result = new ForbidResult();

@@ -1,16 +1,11 @@
+using Mapster;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
-using Microsoft.AspNetCore.Authentication.OAuth;
-using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.CookiePolicy;
-using Microsoft.AspNetCore.HttpsPolicy;
-using Microsoft.AspNetCore.Routing;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
-using webapi.Data;
-using webapi.Data.Blog;
-using webapi.Data.Dto.News;
-using webapi.Data.User;
-using webapi.Filter;
+using webapi.Services;
+using webapi.Services.Blog;
+using webapi.Services.User;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -42,6 +37,8 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme).AddJw
 });
 builder.Services.AddAuthorization();
 
+builder.Services.AddMapster();
+
 builder.Services.AddTransient<
     IBlogService, BlogService>();
 builder.Services.AddTransient<
@@ -69,8 +66,13 @@ builder.Services.AddDbContext<DataContext>(options =>
 
 var app = builder.Build();
 
+app.UseHttpsRedirection();
+
+app.UseDefaultFiles();
+app.UseStaticFiles();
 app.UseAuthentication();
 app.UseAuthorization();
+
 
 if (app.Environment.IsDevelopment())
 {

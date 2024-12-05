@@ -1,7 +1,7 @@
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using webapi.Data.Blog;
-using webapi.Data.Dto.Article;
+using webapi.Model.Blog;
+using webapi.Services.Blog;
 
 namespace webapi.Controllers;
 

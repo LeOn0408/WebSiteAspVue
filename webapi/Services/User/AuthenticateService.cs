@@ -1,12 +1,15 @@
-﻿using Microsoft.AspNetCore.Authentication.OAuth;
+﻿using Mapster;
+using Microsoft.AspNetCore.Authentication.OAuth;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
-using webapi.Data.Dto.User;
+using webapi.Model.DTO;
+using webapi.Model.Entities;
+using webapi.Model.User;
 using webapi.Services;
 
-namespace webapi.Data.User
+namespace webapi.Services.User
 {
     public class AuthenticateService
     {
@@ -19,7 +22,7 @@ namespace webapi.Data.User
             _applicationContext = applicationContext;
         }
 
-        public AuthenticatedUser GetAuthenticatedUser(string login, string hashPass) 
+        public AuthenticatedUser GetAuthenticatedUser(string login, string hashPass)
         {
             AuthenticatedUser authenticatedUser;
             if (login == "admin")
@@ -41,12 +44,12 @@ namespace webapi.Data.User
         }
         public AuthenticatedUser GetAuthenticatedUserByRefreshToken(string refreshToken)
         {
-            var token = _applicationContext.RefreshToken.Include(u => u.User).FirstOrDefault(t=>t.Token==refreshToken);
-            if(token is null || token.TokenExpiryDate < DateTime.UtcNow)
+            var token = _applicationContext.RefreshToken.Include(u => u.User).FirstOrDefault(t => t.Token == refreshToken);
+            if (token is null || token.TokenExpiryDate < DateTime.UtcNow)
             {
                 return new AuthenticatedUser("Недействительный токен");
             }
-            var user = _applicationContext.Users.FirstOrDefault(x => x.Id == token.User.Id);
+            var user = _applicationContext.Users.FirstOrDefault(x => x.Id == token.User.Id).Adapt<UserDto>();
             if (user == null)
             {
                 return new AuthenticatedUser("Недействительный токен");
@@ -74,21 +77,21 @@ namespace webapi.Data.User
             return jwt;
         }
 
-        private RefreshToken CreateRefreshToken(UserDto user) 
+        private RefreshTokenEntity CreateRefreshToken(UserDto user)
         {
-            var token = new RefreshToken
+            var token = new RefreshTokenEntity
             {
                 TokenExpiryDate = DateTime.UtcNow.AddDays(30),
-                User = user,
+                User = user.Adapt<UserEntity>(),
                 Token = Guid.NewGuid().ToString()
             };
             SaveTokenToDatabase(token);
-            return token; 
+            return token;
         }
-        private void SaveTokenToDatabase(RefreshToken token)
+        private void SaveTokenToDatabase(RefreshTokenEntity token)
         {
             var tokenDatabase = _applicationContext.RefreshToken.FirstOrDefault(t => t.User == token.User);
-            if(tokenDatabase is null)
+            if (tokenDatabase is null)
             {
                 _applicationContext.RefreshToken.Add(token);
                 _applicationContext.SaveChanges();
@@ -96,7 +99,7 @@ namespace webapi.Data.User
             else
             {
                 tokenDatabase.Token = token.Token;
-                tokenDatabase.TokenExpiryDate =token.TokenExpiryDate;
+                tokenDatabase.TokenExpiryDate = token.TokenExpiryDate;
                 _applicationContext.SaveChanges();
             }
         }
@@ -104,13 +107,13 @@ namespace webapi.Data.User
         private AuthenticatedUser GetAuthenticateAdmin(string hashPassword)
         {
             string passwordSystem = _configuration.GetSection("SecurityPass").Value ?? throw new Exception("SecurityPass not specified");
-            UserDto admin = _applicationContext.Users.FirstOrDefault(x => x.UserName == "admin");
+            UserEntity admin = _applicationContext.Users.FirstOrDefault(x => x.UserName == "admin");
             if (admin == null)
             {
 
                 if (!string.IsNullOrEmpty(passwordSystem) && hashPassword == Password.Hash(passwordSystem))
                 {
-                    admin = new UserDto()
+                    admin = new UserEntity()
                     {
                         UserName = "admin",
                         Password = Password.Hash(passwordSystem),
@@ -119,9 +122,10 @@ namespace webapi.Data.User
                     admin.FirstName ??= admin.UserName;
                     admin.LastName ??= admin.UserName;
                     _applicationContext.Users.Add(admin);
+                    
                     if (_applicationContext.SaveChanges() > 0)
                     {
-                        return new AuthenticatedUser(admin);
+                        return new AuthenticatedUser(admin.Adapt<UserDto>());
                     }
 
                     return new AuthenticatedUser("Error when creating an account");
@@ -134,7 +138,7 @@ namespace webapi.Data.User
 
             if (admin.Password == hashPassword || hashPassword == Password.Hash(passwordSystem))
             {
-                return new AuthenticatedUser(admin);
+                return new AuthenticatedUser(admin.Adapt<UserDto>());
             }
             else
             {
