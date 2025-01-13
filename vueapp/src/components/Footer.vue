@@ -35,9 +35,21 @@
 </script>
 
 <style>
-    @media (max-width: 575px) {
-        footer.fixed-bottom {
-            position: static; /* Убираем фиксированное позиционирование для маленьких экранов */
-        }
+    #footer {
+        background-color: #303030;
+        color: white;
+        position: static; /* Убираем фиксированное позиционирование */
+        bottom: 0;
+        width: 100%;
     }
+
+    #language-select {
+        background-color: #303030;
+        color: #f1f1f1;
+    }
+    /*@media (max-width: 575px) {
+        footer {
+            position: static;*/ /* Для мобильных устройств */
+        /*}
+    }*/
 </style>

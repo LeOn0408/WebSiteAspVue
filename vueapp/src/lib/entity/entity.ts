@@ -1,15 +1,15 @@
 
 export interface IEntity<T> {
     getListAsync(): Promise<Array<T>>;
-    get(id: number): T;
+    getByIdAsync(id: number): Promise<T>;
     add(entity: T): T;
 }
 export abstract class Entity<T> implements IEntity<T> {
     getListAsync(): Promise<Array<T>> {
         throw new Error("Method not implemented.");
     }
-    get(id: number): T {
-        return {} as T;
+    getByIdAsync(id: number): Promise<T> {
+        return {} as Promise<T>;
     }
     add(entity: T): T {
         return {} as T;

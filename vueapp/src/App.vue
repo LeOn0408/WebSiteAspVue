@@ -7,13 +7,19 @@
             <Navigation></Navigation>
             
         </div>
-        <main id="main-content">
-            <router-view />
-            <aside>
-                <!--<Servers></Servers>-->
-            </aside>
+        <main id="main-content" class="d-flex">
+            <!-- Основной контент -->
+            <div class="flex-grow-1">
+                <router-view />
+            </div>
+            <!-- Правая колонка -->
+            <RightSidebar>
+                <template v-slot:default>
+                    <!-- Здесь можно передать контент через слот -->
+                </template>
+            </RightSidebar>
         </main>
-        <Footer></Footer>
+        <!--<Footer></Footer>-->
     </div>
 </template>
 <script lang="ts">
@@ -21,46 +27,28 @@
     import Navigation from "./components/NavigationComponent.vue";
     import AdminPanel from "./components/AdminPanelComponent.vue";
     import Footer from "./components/Footer.vue";
+    import RightSidebar from '@/components/RightSidebar.vue';
 
     export default defineComponent({
         components: {
             Navigation,
             AdminPanel,
-            Footer
+            Footer,
+            RightSidebar
         },
         
     });
 </script>
 
 <style>
-    #app {
-        font-family: 'Yanone Kaffeesatz', sans-serif;
-        margin: 0;
-        /*background: url(./assets/images/background.png);*/
-        /*font-size: larger;*/
-        /*color: #000000bf;*/
-        height:100%
-    }
     .page-wrapper {
         display: flex;
         flex-direction: column;
-        height: 100vh;
+        min-height: 100vh;
     }
-    @media (max-width: 575px) {
-        .page-wrapper {
-            height: auto; /* Автоматическая высота для маленьких экранов */
-        }
-    }
+
     #main-content {
+        display: flex;
         flex-grow: 1;
-        overflow: auto;
-    }
-    #footer {
-        background-color: #303030;
-        color: white;
-    }
-    #language-select {
-        background-color: #303030;
-        color: #f1f1f1;
     }
 </style>
