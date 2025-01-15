@@ -12,12 +12,14 @@
                     <span>от {{ article.createdByUser.userName }}</span> |
                     <span>{{ localeDate(article.creationDate) }}</span>
                 </p>
-                <div class="mb-3">
-                    <span v-for="tag in article.tags" :key="tag.id" class="badge bg-secondary me-1">
-                        {{ tag.title }}
-                    </span>
-                </div>
+
                 <p class="card-text" v-html="article.description"></p>
+
+
+                <div>
+                    <span class="fw-bold">{{ $t('articles.tags') }}: </span>
+                    <a href="#" class="badge bg-secondary me-1" v-for="tag in article.tags" :key="tag.id">{{ tag.title }}</a>
+                </div>
             </div>
         </div>
     </div>
@@ -25,12 +27,13 @@
 
 <script lang="ts">
     import { defineComponent } from 'vue';
-    import { Article } from '@/lib/entity/article'; // Импорт модели
+    import { ArticleService } from '@/api/services/ArticleService'; 
+    import { Helper } from '@/lib/helper';
 
     export default defineComponent({
         props: {
             id: {
-                type: String,
+                type: Number,
                 required: true,
             },
         },
@@ -40,13 +43,12 @@
             };
         },
         async created() {
-            const articleService = new Article();
+            const articleService = new ArticleService();
             this.article = await articleService.getByIdAsync(this.id); // Получение статьи по ID
         },
         methods: {
             localeDate(date: string) {
-                const options = { year: 'numeric', month: 'long', day: 'numeric' };
-                return new Date(date).toLocaleDateString('ru-RU', options);
+                return Helper.FormatDate(date);
             },
             goBack() {
                 this.$router.go(-1); // Возврат на предыдущую страницу

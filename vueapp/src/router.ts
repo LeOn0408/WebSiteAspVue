@@ -1,6 +1,7 @@
 import { createRouter, createWebHistory } from 'vue-router'
 import Home from '@/views/HomePage.vue'
 import Admin from '@/views/AdminPage.vue'
+import AboutPage from '@/views/About.vue';
 import ArticlePage from '@/views/blog/ArticlePage.vue'; // Страница статьи
 
 export default createRouter({
@@ -20,10 +21,11 @@ export default createRouter({
             component: ArticlePage,
             props: true, // Передача параметра id как prop
         },
-        //{
-        //    path: '/about',
-        //    component: () => import('@/views/About.vue'),
-        //},
+        {
+            path: '/about',
+            name: 'AboutPage',
+            component: AboutPage,
+        },
         //{
         //    path: '/contact',
         //    component: () => import('@/views/Contact.vue'),

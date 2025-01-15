@@ -11,7 +11,37 @@
       "select": "Select language"
     }
   },
-  "article": {
-    "readmore": "Read more..."
+  "tabs": {
+    "all": "All"
+  },
+  "articles": {
+    "by": "By",
+    "tags": "Tags"
+  },
+  "buttons": {
+    "readMore": "Read more"
+  },
+  "pagination": {
+    "prev": "Previous",
+    "next": "Next >>"
+  },
+  "about": {
+    "title": "About Me",
+    "name": "Alexander — Software Engineer",
+    "description": "I am a professional software developer with extensive experience in creating corporate solutions and web applications. I work on projects using ASP Core, Vue3, Blazor, Yii2, and Bitrix, as well as create games using Unity.",
+    "professional": {
+      "title": "Professional Skills",
+      "experience": "Over 5 years of programming and development experience.",
+      "skills": "Proficient in C#, TypeScript, JavaScript, PHP, SQL, Unity, ASP.NET Core, Vue.js, and other technologies.",
+      "currentProjects": "Currently working on a corporate portal using Bitrix and another portal using Yii2."
+    },
+    "hobbies": {
+      "title": "Hobbies",
+      "description": "Game development, programming, learning new technologies, and solving complex problems."
+    },
+    "contact": {
+      "title": "Contact",
+      "telegram": "Send a message on Telegram"
+    }
   }
 }
