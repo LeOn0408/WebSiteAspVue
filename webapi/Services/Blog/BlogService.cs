@@ -1,5 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using webapi.Model.Blog;
+using webapi.Model;
+using webapi.Model.Entities;
 
 namespace webapi.Services.Blog
 {
@@ -26,15 +27,24 @@ namespace webapi.Services.Blog
 
         public Article Get(int id)
         {
-            throw new NotImplementedException();
+            var article = _context.Articles
+                .OrderByDescending(a => a.CreationDate)//Реализовать сортировку фильтром
+                .Where(a=>a.Id==id)
+                .Include(a => a.Section)
+                .Include(a => a.Tags)
+                .Include(a => a.Image)
+                .Include(a => a.CreatedByUser)
+                .Include(a => a.LastEditedByUser)
+                .FirstOrDefault();
+            return article;
         }
 
-        public IEnumerable<Article> GetAll()
+        public CollectionResult<Article> GetAll()
         {
             throw new NotImplementedException();
         }
 
-        public IEnumerable<Article> GetAllForPeriod(DateTime begin, DateTime end)
+        public CollectionResult<Article> GetAllForPeriod(DateTime begin, DateTime end)
         {
             throw new NotImplementedException();
         }
@@ -46,11 +56,11 @@ namespace webapi.Services.Blog
         /// <param name="pageSize"></param>
         /// <returns></returns>
         /// <exception cref="ArgumentOutOfRangeException">Page number less than 0</exception>
-        public IEnumerable<Article> GetArticlesPaginated(int page, int pageSize)
+        public CollectionResult<Article> GetArticlesPaginated(int page, int pageSize)
         {
-            if (page < 0) { throw new ArgumentOutOfRangeException(); }
+            ArgumentOutOfRangeException.ThrowIfNegativeOrZero(page);
 
-            int skip = page == 0 ? page : page - 1;
+            int skip = (page-1) * pageSize;
 
             IQueryable<Article> article = _context.Articles
                 .OrderByDescending(a => a.CreationDate)//Реализовать сортировку фильтром
@@ -60,7 +70,11 @@ namespace webapi.Services.Blog
                 .Include(a => a.Image)
                 .Include(a => a.CreatedByUser)
                 .Include(a => a.LastEditedByUser);
-            return article;
+            return new CollectionResult<Article>()
+            {
+                Items = [.. article],
+                TotalCount = _context.Articles.Count()
+            };
         }
 
         public bool Update(Article news)

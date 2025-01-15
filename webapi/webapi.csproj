@@ -24,6 +24,7 @@
 
   <ItemGroup>
     <Folder Include="Middleware\" />
+    <Folder Include="Model\Blog\" />
   </ItemGroup>
 
   <ItemGroup>

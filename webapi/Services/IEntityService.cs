@@ -1,4 +1,4 @@
-﻿using webapi.Model;
+using webapi.Model;
 
 namespace webapi.Services
 {
@@ -8,6 +8,7 @@ namespace webapi.Services
         public bool Delete(T entity);
         public bool Update(T entity);
         public T Get(int id);
-        public IEnumerable<T> GetAll();
+        public CollectionResult<T> GetAll();
+        
     }
 }

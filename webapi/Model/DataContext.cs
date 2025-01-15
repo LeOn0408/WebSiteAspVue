@@ -1,6 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using webapi.Model;
-using webapi.Model.Blog;
 using webapi.Model.Entities;
 
 public class DataContext: DbContext

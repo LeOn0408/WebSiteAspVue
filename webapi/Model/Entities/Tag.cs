@@ -1,7 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations.Schema;
-using webapi.Model;
 
-namespace webapi.Model.Blog;
+namespace webapi.Model.Entities;
 
 [Table("ap_tags")]
 public class Tag : Entity

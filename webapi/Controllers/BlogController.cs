@@ -1,6 +1,7 @@
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using webapi.Model.Blog;
+using webapi.Model.Api;
+using webapi.Model.Entities;
 using webapi.Services.Blog;
 
 namespace webapi.Controllers;
@@ -19,9 +20,9 @@ public class BlogController : ControllerBase
     }
 
     [HttpGet][Route("get")]
-    public Article Get()
+    public Article Get(int id)
     {
-        throw new NotImplementedException();
+        return _blogService.Get(id);
     }
 
     [Authorize]
@@ -32,17 +33,27 @@ public class BlogController : ControllerBase
         return newsId;
     }
 
+    //TODO: переделать на фильтр
     [HttpGet]
     [Route("list")]
-    public List<Article> List(int page, int pageSize) 
+    public Response<Article> List(int page, int pageSize) 
     {
-        List<Article> articles = _blogService.GetArticlesPaginated(page, pageSize).ToList();
-        return articles;
+        var paginatedArticles = _blogService.GetArticlesPaginated(page, pageSize);
+        PaginatedArticleResponse response = new ()
+        {
+            Items = paginatedArticles.Items, // Список статей
+            CurrentPage = page, // Текущая страница
+            PageSize = pageSize, // Размер страницы
+            TotalCount = paginatedArticles.TotalCount, // Общее количество статей
+            TotalPages = (int)Math.Ceiling((double)paginatedArticles.TotalCount / pageSize) // Общее количество страниц
+        };
+
+        return response;
     }
     //[HttpGet(Name = "GetNewsList")]
     //public IEnumerable<ArticleDto> GetList()
     //{
-    //    // ����� �� ������ �������� ������ �������� �� ���� ������ ��� �� ������� ��������� ������
+    //    // Здесь вы можете получить список новостей из базы данных или из другого источника данных
     //    var newsList = new List<ArticleDto>();
 
     //    return newsList;

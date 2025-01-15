@@ -1,7 +1,7 @@
-﻿using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
-namespace webapi.Model.Blog;
+namespace webapi.Model.Entities;
 
 [Table("ap_article")]
 public class Article : Entity
