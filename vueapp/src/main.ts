@@ -11,9 +11,8 @@ import ru from './locales/ru.json';
 import en from './locales/en.json';
 import authModule from './store/modules/auth.module';
 import userModule from './store/modules/user.module'
-import articleModule from './store/modules/article.module'
 import { createAxios } from './lib/factory';
-
+import { Logger } from './lib/services/Logger';
 
 //TODO:Implement localization
 const localeFromStorage = localStorage.getItem('userLocale');
@@ -37,7 +36,6 @@ const store = createStore({
     modules: {
         auth: authModule,
         user: userModule,
-        article: articleModule
     },
     state() {
         return {
@@ -58,4 +56,5 @@ const app = createApp(App);
 app.use(router)
     .use(store)
     .use(i18n)
+    .provide('logger', new Logger())
     .mount('#app');

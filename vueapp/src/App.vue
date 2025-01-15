@@ -1,11 +1,10 @@
-﻿<template>
+<template>
     <div class="position-relative page-wrapper">
         <div class="position-relative">
             <div class="admin-panel">
                 <AdminPanel></AdminPanel>
             </div>
             <Navigation></Navigation>
-            
         </div>
         <main id="main-content" class="d-flex">
             <!-- Основной контент -->
@@ -13,15 +12,16 @@
                 <router-view />
             </div>
             <!-- Правая колонка -->
-            <RightSidebar>
+            <RightSidebar class="d-none d-md-block">
                 <template v-slot:default>
                     <!-- Здесь можно передать контент через слот -->
                 </template>
             </RightSidebar>
         </main>
-        <!--<Footer></Footer>-->
+        <Footer />
     </div>
 </template>
+
 <script lang="ts">
     import { defineComponent } from "vue";
     import Navigation from "./components/NavigationComponent.vue";
@@ -36,7 +36,6 @@
             Footer,
             RightSidebar
         },
-        
     });
 </script>
 
@@ -50,5 +49,17 @@
     #main-content {
         display: flex;
         flex-grow: 1;
+        margin-bottom: 40px;
+    }
+
+    /* Скроем правую колонку на мобильных устройствах */
+    @media (max-width: 768px) {
+        .right-sidebar {
+            display: none;
+        }
+    }
+
+    footer {
+        margin-top: auto;
     }
 </style>
