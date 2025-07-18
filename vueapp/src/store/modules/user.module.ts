@@ -1,6 +1,7 @@
 ﻿
 
 export default {
+    namespaced: true,
     state: {
         user: {},
     },
@@ -12,7 +13,6 @@ export default {
             const result = await context.rootState.axios.get(`/api/user?id=${id}`).catch((err:any) => {
                 throw err;
             });
-           
             return result;
         },
         async isAdmin(context: any, id: number) {

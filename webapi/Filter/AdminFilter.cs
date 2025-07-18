@@ -1,4 +1,4 @@
-﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Filters;
 using Microsoft.EntityFrameworkCore;
 using webapi.Model.Entities;
@@ -8,7 +8,7 @@ namespace webapi.Filter
     [AttributeUsage(AttributeTargets.Class)]
     public class AdminFilter : Attribute,IAuthorizationFilter
     {
-        private DataContext _applicationContext;
+        private readonly DataContext _applicationContext;
 
         public AdminFilter(DataContext applicationContext)
         {

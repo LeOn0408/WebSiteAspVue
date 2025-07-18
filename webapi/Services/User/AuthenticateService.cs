@@ -1,4 +1,4 @@
-﻿using Mapster;
+using Mapster;
 using Microsoft.AspNetCore.Authentication.OAuth;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
@@ -42,6 +42,7 @@ namespace webapi.Services.User
             }
             return authenticatedUser;
         }
+
         public AuthenticatedUser GetAuthenticatedUserByRefreshToken(string refreshToken)
         {
             var token = _applicationContext.RefreshToken.Include(u => u.User).FirstOrDefault(t => t.Token == refreshToken);

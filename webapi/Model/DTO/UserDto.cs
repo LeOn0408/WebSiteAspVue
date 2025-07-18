@@ -9,13 +9,11 @@ public class UserDto
 
     [Required]
     public required string UserName { get; set; }
+    
     public string? FirstName { get; set; }
+    
     public string? LastName { get; set; }
-
     public required string Email { get; set; }
-
-    //[JsonIgnore]
-    //public string Password { get; set; } = null!;
 
     [JsonIgnore]
     public bool IsAdmin { get; set; } = false;

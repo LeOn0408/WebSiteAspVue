@@ -50,21 +50,37 @@
             }
         },
         methods: {
-            ...mapActions({
+            ...mapActions('auth',{
                 auth: 'login'
             }),
             login(){
                 if (!this.username.trim() || !this.password.trim()) {
-                    console.log('¬ведите им€ пользовател€ и пароль');
+                    this.error = this.lang('login.emptyFields');
                     return;
                     
                 }
-                this.auth({ username: this.username, password: this.password }).then(result => {
-                    if (result) {
-                        //TODO: Implement a complete authorization method
-                        location.reload();
-                    }
-                });
+                this.auth({ username: this.username, password: this.password })
+                    .then(() => {
+                        const redirect = this.$route.query.redirect as string | undefined;
+                        this.isVisible = false;
+                        if (redirect) {
+                            this.$router.push(decodeURIComponent(redirect));
+                        }
+                        //else {
+                        //    this.$emit('close');
+                        //}
+                    })
+                    .catch((err) => {
+                        if (err.response && err.response.status === 401) {
+                            const redirect = this.$route.query.redirect as string | undefined;
+
+                            if (!redirect) {
+                                this.$router.push('/');
+                            }
+                        } else {
+                            this.error = this.lang('login.failed');
+                        }
+                    });
             }
         },
     });

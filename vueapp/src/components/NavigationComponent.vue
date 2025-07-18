@@ -19,6 +19,7 @@
             <div class="collapse navbar-collapse justify-content-end" id="navbarNavAltMarkup">
                 <div class="navbar-nav">
                     <router-link class="nav-link" :class="{ active: isActive('/') }" to="/">{{ $t('nav-menu.main') }}</router-link>
+                    <router-link class="nav-link" :class="{ active: isActive('/blog') }" to="/blog">{{ $t('nav-menu.blog') }}</router-link>
                     <router-link class="nav-link" :class="{ active: isActive('/projects') }" to="/projects">{{ $t('nav-menu.projects') }}</router-link>
                     <router-link class="nav-link" :class="{ active: isActive('/about') }" to="/about">{{ $t('nav-menu.about') }}</router-link>
                 </div>

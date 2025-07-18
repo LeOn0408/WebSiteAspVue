@@ -1,4 +1,4 @@
-﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using webapi.Model.User;
 using webapi.Services.User;
@@ -66,7 +66,7 @@ namespace webapi.Controllers
         [HttpGet][Route("validate")]
         public IActionResult Validate()
         {
-            return Ok("API Validated");
+            return Ok(new { message = "Token is valid"});
         }
 
     }

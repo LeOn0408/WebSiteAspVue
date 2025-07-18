@@ -1,47 +1,61 @@
 {
+  "home": {
+    "welcome": "Welcome!",
+    "description": "My projects and the latest news from the world of IT and gaming",
+    "myServers": "My Game Servers",
+    "news": "News",
+    "blog": "Blog",
+    "projects": "My Projects"
+  },
   "nav-menu": {
-    "main": "Main",
+    "main": "Home",
     "servers": "Game Servers",
     "projects": "My Projects",
-    "about": "Contact Information",
-    "login": "Sign in"
+    "about": "About Me",
+    "login": "Login",
+    "blog": "News"
   },
   "footer": {
     "language": {
       "select": "Select language"
     }
   },
+  "login": {
+    "username": "Username",
+    "password": "Password",
+    "submit": "Login"
+  },
   "tabs": {
     "all": "All"
   },
   "articles": {
-    "by": "By",
+    "by": "by",
     "tags": "Tags"
   },
   "buttons": {
-    "readMore": "Read more"
+    "readMore": "Read More"
   },
   "pagination": {
-    "prev": "Previous",
-    "next": "Next >>"
+    "prev": "← Previous",
+    "next": "Next →"
   },
   "about": {
     "title": "About Me",
     "name": "Alexander — Software Engineer",
-    "description": "I am a professional software developer with extensive experience in creating corporate solutions and web applications. I work on projects using ASP Core, Vue3, Blazor, Yii2, and Bitrix, as well as create games using Unity.",
+    "description": "I'm a professional software developer with extensive experience in building enterprise solutions and web applications. I work on projects using ASP Core, Vue3, Blazor, Yii2, and Bitrix, and I also develop games with Unity.",
     "professional": {
       "title": "Professional Skills",
       "experience": "Over 5 years of programming and development experience.",
       "skills": "Proficient in C#, TypeScript, JavaScript, PHP, SQL, Unity, ASP.NET Core, Vue.js, and other technologies.",
-      "currentProjects": "Currently working on a corporate portal using Bitrix and another portal using Yii2."
+      "currentProjects": "Currently working on a corporate portal in Bitrix and a portal using Yii2."
     },
     "hobbies": {
       "title": "Hobbies",
       "description": "Game development, programming, learning new technologies, and solving complex problems."
     },
     "contact": {
-      "title": "Contact",
-      "telegram": "Send a message on Telegram"
+      "title": "Contacts",
+      "telegram": "Message me on Telegram"
     }
   }
 }

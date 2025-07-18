@@ -53,6 +53,26 @@ const store = createStore({
 const app = createApp(App);
 
 
+router.beforeEach(async (to, from, next) => {
+    await store.dispatch('auth/init')
+
+    const isAuthenticated = store.state.auth.isLoggedIn
+    
+    if (to.matched.some(record => record.meta.requiresAuth)) {
+        console.log(isAuthenticated);
+        if (!isAuthenticated) {
+            next({
+                name: 'AccessDeniedPage',
+                query: { redirect: encodeURIComponent(to.fullPath) }
+            })
+        } else {
+            next()
+        }
+    } else {
+        next()
+    }
+})
+
 app.use(router)
     .use(store)
     .use(i18n)

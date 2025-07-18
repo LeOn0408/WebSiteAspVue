@@ -1,0 +1,2 @@
+[*.{cs,cshtml,razor,vue}]
+charset = utf-8

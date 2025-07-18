@@ -2,7 +2,9 @@ import { createRouter, createWebHistory } from 'vue-router'
 import Home from '@/views/HomePage.vue'
 import Admin from '@/views/AdminPage.vue'
 import AboutPage from '@/views/About.vue';
-import ArticlePage from '@/views/blog/ArticlePage.vue'; // Страница статьи
+import AccessDeniedPage from '@/views/AccessDeniedPage.vue'
+import ArticlePage from '@/views/blog/ArticlePage.vue';
+import BlogPage from '@/views/blog/BlogPage.vue';
 
 export default createRouter({
     history: createWebHistory(),
@@ -13,7 +15,12 @@ export default createRouter({
         },
         {
             path: '/admin',
-            component: Admin
+            component: Admin,
+            meta: { requiresAuth: true }
+        },
+        {
+            path: '/blog',
+            component: BlogPage,
         },
         {
             path: '/article/:id',
@@ -26,6 +33,12 @@ export default createRouter({
             name: 'AboutPage',
             component: AboutPage,
         },
+        {
+            path: '/401',
+            name: 'AccessDeniedPage',
+            component: AccessDeniedPage,
+            meta: { requiresAuth: false, guestOnly: true } // Только для неавторизованных
+        }
         //{
         //    path: '/contact',
         //    component: () => import('@/views/Contact.vue'),
