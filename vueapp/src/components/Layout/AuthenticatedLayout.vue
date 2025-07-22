@@ -13,17 +13,12 @@
     </div>
 </template>
 
-<script>
+<script lang="ts">
 import { mapActions } from 'vuex';
 
 export default {
   methods: {
-    ...mapActions('auth', ['logout']),
-    logout() {
-      this.$store.dispatch('auth/logout').then(() => {
-        this.$router.push('/login');
-      });
-    }
+    
   }
 }
 </script>

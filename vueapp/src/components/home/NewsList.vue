@@ -68,10 +68,10 @@
             };
         },
         computed: {
-            displayedArticles() {
+            displayedArticles() : any {
                 if (this.loading) {
                     // Возвращаем массив заглушек, пока идет загрузка
-                    return Array.from({ length: this.pageSize }, (_, index) => ({
+                    return Array.from({ length: 1 }, (_, index) => ({
                         placeholderId: `placeholder-${index}`,
                     }));
                 }

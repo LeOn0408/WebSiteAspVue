@@ -30,14 +30,14 @@
                     {{ $t('access_denied.go_home') }}
                 </router-link>
             </div>
-            <div v-else class="access-denied-actions">
+            <!--<div v-else class="access-denied-actions">
                 <router-link to="/admin" class="btn btn-primary">
                     {{ $t('access_denied.go_to_admin') }}
                 </router-link>
                 <button @click="logout" class="btn btn-outline-secondary">
                     {{ $t('access_denied.logout') }}
                 </button>
-            </div>
+            </div>-->
         </div>
 
         <Login></Login>
@@ -46,6 +46,7 @@
 <script lang="ts">
     import { defineComponent, defineAsyncComponent } from 'vue';
     import { mapState, mapActions } from 'vuex';
+    import type { RootState } from '@/store';
 
     const Login = defineAsyncComponent(() =>
         import('@/components/modal/LoginModalComponent.vue')
@@ -62,20 +63,21 @@
             }
         },
         computed: {
-            ...mapState(['isLoggedIn', 'user']),
+            ...mapState('auth', ['isLoggedIn']),
         },
         methods: {
             ...mapActions('auth', {
                 init: 'init'
             }),
         },
-        created() {
-            this.init().then(result => {
-                if (result) {
-                    this.isLoggedIn = this.$store.state.auth.isLoggedIn;
-                }
-            });
-
+        async created() {
+            try {
+                await this.init();
+                // Теперь this.isLoggedIn уже обновлен через mapState
+                console.log('Auth status:', this.isLoggedIn);
+            } catch (error) {
+                console.error('Initialization failed:', error);
+            }
         }
 
     });

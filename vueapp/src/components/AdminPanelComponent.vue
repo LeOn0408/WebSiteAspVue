@@ -33,8 +33,6 @@
         created() {
             this.init().then(result => {
                 if (result) {
-                    //this.isLoggedIn = this.$store.state.auth.isLoggedIn;
-                    console.log('ФЗС auth.isLoggedIn from store:', this.$store.state.auth.user);
                 }
             });
         },
