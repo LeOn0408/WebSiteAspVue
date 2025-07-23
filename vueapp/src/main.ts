@@ -40,7 +40,6 @@ router.beforeEach(async (to, from, next) => {
     const isAuthenticated = store.state.auth.isLoggedIn
     
     if (to.matched.some(record => record.meta.requiresAuth)) {
-        console.log(isAuthenticated);
         if (!isAuthenticated) {
             next({
                 name: 'AccessDeniedPage',

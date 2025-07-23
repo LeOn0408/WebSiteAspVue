@@ -72,7 +72,7 @@ namespace webapi.Services.User
                     issuer: authOptions.Issuer,
             audience: authOptions.Audience,
             claims: claims,
-            expires: DateTime.UtcNow.Add(TimeSpan.FromMinutes(2)), // время действия 2 минуты
+            expires: DateTime.Now.Add(TimeSpan.FromMinutes(15)), // время действия 15 минут
                     signingCredentials: new SigningCredentials(authOptions.GetSymmetricSecurityKey(), SecurityAlgorithms.HmacSha256));
 
             return jwt;

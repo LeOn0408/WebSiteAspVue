@@ -25,15 +25,7 @@
     }
     static getAuthHeader(): string {
 
-        const userStr: string | null = localStorage.getItem('user');
-
-        if (userStr === null)
-            return '';
-        const user = JSON.parse(userStr);
-
-        if (user && user.jwtToken) {
-            return 'Bearer ' + user.jwtToken;
-        }
-        return '';
+        const token: string | null = localStorage.getItem('token');
+        return token ? `Bearer ${token}` : '';
     }
 }

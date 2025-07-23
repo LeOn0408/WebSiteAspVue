@@ -1,11 +1,3 @@
-<!--<template>
-    В доступе отказано
-    <div class="container">
-        
-
-        <Login></Login>
-    </div>
-</template>-->
 <template>
     <div class="access-denied-container">
         <div class="access-denied-card">

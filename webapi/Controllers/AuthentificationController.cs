@@ -49,12 +49,19 @@ namespace webapi.Controllers
         public ActionResult<AuthenticatedUser> AuthenticateByRefreshToken()
         {
             var token = HttpContext.Request.Cookies[".AspCore.Refresh.Token"];
+            if (token is null)
+                return Unauthorized("Token not found");
             var authenticatedUser = _authenticateService.GetAuthenticatedUserByRefreshToken(token);
+            
+            if (authenticatedUser is null)
+                return Unauthorized("User not found");
+            
             if (!authenticatedUser.IsUserValid)
             {
                 return Unauthorized(authenticatedUser.ErrorMessage);
             }
-            HttpContext.Response.Cookies.Append(".AspCore.Refresh.Token", authenticatedUser?.RefreshToken?.Token.ToString(),
+            
+            HttpContext.Response.Cookies.Append(".AspCore.Refresh.Token", authenticatedUser?.RefreshToken?.Token?.ToString() ?? string.Empty,
                 new CookieOptions
                 {
                     MaxAge = authenticatedUser?.RefreshToken?.TokenExpiryDate - DateTime.Now

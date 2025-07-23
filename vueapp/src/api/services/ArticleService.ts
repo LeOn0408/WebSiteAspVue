@@ -1,5 +1,6 @@
+import { type AxiosInstance } from "axios";
+import { createAxios } from "../../lib/factory";
 import type { ArticleModel } from "../../lib/model/articlemodel";
-import axios from 'axios';
 import type { IDataService } from "./IDataService";
 import { Logger } from '@/lib/services/Logger';
 
@@ -19,6 +20,7 @@ export class ArticleService implements IDataService<ArticleModel> {
     }
     async getArticlesByPageAsync(page: number, pageSize: number): Promise<{ items: ArticleModel[], totalCount: number }> {
         try {
+            const axios: AxiosInstance = createAxios();
             let result = await axios.get("/api/blog/list", {
                 params: {
                     page: page,
@@ -36,6 +38,7 @@ export class ArticleService implements IDataService<ArticleModel> {
     }
     async getByIdAsync(id: number): Promise<ArticleModel> {
         try {
+            const axios: AxiosInstance = createAxios();
             let result = await axios.get("/api/blog/get", {
                 params: {
                     id: id,

@@ -2,7 +2,7 @@
     <nav class="navbar navbar-expand-lg shadow-sm">
         <div class="container-fluid">
             <!-- Логотип -->
-            <a class="navbar-brand d-flex align-items-center" href="#">
+            <a class="navbar-brand d-flex align-items-center" href="/">
                 <img src="../assets/images/logo2.png" alt="Logo" width="40" height="30" class="d-inline-block align-middle me-2">
                 <span class="fw-bold">aparshukov</span>
             </a>
@@ -20,7 +20,7 @@
                 <div class="navbar-nav">
                     <router-link class="nav-link" :class="{ active: isActive('/') }" to="/">{{ $t('nav-menu.main') }}</router-link>
                     <router-link class="nav-link" :class="{ active: isActive('/blog') }" to="/blog">{{ $t('nav-menu.blog') }}</router-link>
-                    <router-link class="nav-link" :class="{ active: isActive('/projects') }" to="/projects">{{ $t('nav-menu.projects') }}</router-link>
+                    <!--<router-link class="nav-link" :class="{ active: isActive('/projects') }" to="/projects">{{ $t('nav-menu.projects') }}</router-link>-->
                     <router-link class="nav-link" :class="{ active: isActive('/about') }" to="/about">{{ $t('nav-menu.about') }}</router-link>
                 </div>
                 <!-- Кнопка входа -->

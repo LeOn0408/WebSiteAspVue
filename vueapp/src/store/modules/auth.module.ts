@@ -1,5 +1,6 @@
 import { Helper } from '@/lib/helper';
-import axios from 'axios';
+import { type AxiosInstance } from "axios";
+import { createAxios } from "../../lib/factory";
 import { type authenticatedUser } from './authenticatedUser'
 
 export default {
@@ -29,8 +30,7 @@ export default {
             const userRaw = localStorage.getItem('user');
 
             if (token && userRaw) {
-
-                axios.defaults.headers.common['Authorization'] = `Bearer ${token}`;
+                const axios: AxiosInstance = createAxios();
 
                 try {
                     await axios.get('/api/validate');
@@ -52,6 +52,7 @@ export default {
 
             const hashPass: string = await Helper.sha256(user.password);
             try {
+                const axios: AxiosInstance = createAxios();
                 const result = await axios.post("/api/authenticate", {
                     hashPass,
                     username: user.username

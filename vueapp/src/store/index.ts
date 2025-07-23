@@ -1,10 +1,8 @@
 // store/index.ts
-import type { AxiosInstance } from 'axios';
 import type { InjectionKey } from 'vue';
 import { createStore, Store } from 'vuex';
 import authModule from './modules/auth.module';
 import userModule from './modules/user.module';
-import { createAxios } from '../lib/factory';
 
 export interface AuthState {
     isLoggedIn: boolean;
@@ -13,7 +11,6 @@ export interface AuthState {
 
 export interface RootState {
     preferredLocale: string;
-    axios: AxiosInstance;
 }
 
 export interface State extends RootState {
@@ -29,7 +26,6 @@ export default createStore<State>({
     },
     state: {
         preferredLocale: 'ru',
-        axios: createAxios(),
         auth: { isLoggedIn: false, user: null }
     } as State,
 });

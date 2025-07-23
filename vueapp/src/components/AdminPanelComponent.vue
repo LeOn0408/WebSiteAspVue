@@ -1,11 +1,17 @@
 <template>
     <div v-if="isLoggedIn" class="welcome-banner shadow-sm d-flex justify-content-between align-items-center px-4 py-2">
         <div class="welcome-text">
-            👋 Добро пожаловать, <strong>{{ user.firstName }}</strong>!
+            👋 {{ $t('admin-panel.welcome') }}, <strong>{{ user.firstName }}</strong>!
         </div>
-        <button @click="logout" class="btn btn-sm btn-outline-light">
-            Выйти
-        </button>
+        <div>
+            <button class="btn btn-sm btn-outline-light">
+                {{ $t('admin-panel.addnew') }}
+            </button>
+            <button @click="logout" class="btn btn-sm btn-outline-light mx-2">
+                {{ $t('admin-panel.logout') }}
+            </button>
+        </div>
+        
     </div>
 </template>
 
