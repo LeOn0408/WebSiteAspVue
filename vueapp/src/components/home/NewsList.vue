@@ -50,6 +50,13 @@
                 </div>
             </div>
         </div>
+        <div class="text-center mt-4">
+            <router-link to="/blog"
+                         class="btn btn-outline-primary btn-lg px-4 py-2 rounded-pill read-more-btn">
+                {{ $t('home.read_more') }}
+                <i class="bi bi-arrow-right ms-2 transition-all"></i>
+            </router-link>
+        </div>
     </div>
 </template>
 
@@ -123,6 +130,25 @@
     .section-header h2 {
         font-size: 1.8rem;
         margin-bottom: 0.5rem;
+    }
+    .read-more-btn {
+        transition: all 0.3s ease;
+        border-width: 2px;
+        font-weight: 500;
+        letter-spacing: 0.5px;
+    }
+
+    .read-more-btn:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 5px 15px rgba(0, 123, 255, 0.2);
+    }
+
+        .read-more-btn:hover i {
+            transform: translateX(3px);
+        }
+
+    .read-more-btn i {
+        transition: transform 0.3s ease;
     }
 </style>
 

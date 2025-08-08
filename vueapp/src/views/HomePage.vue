@@ -5,20 +5,24 @@
             <p class="text-muted">{{ $t('home.description') }}</p>
         </div>
 
-        <section class="mb-5">
+        <!--<section class="mb-5">
             <h2 class="section-title">🎮 {{ $t('home.myServers') }}</h2>
             <GameServerList />
-        </section>
+        </section>-->
 
-        <section class="mb-5">
+        <!--<section class="mb-5">
             <h2  class="section-title">💼 {{ $t('home.projects') }}</h2>
             <MyProjects/>
-        </section>
+        </section>-->
 
-        <section class="mb-5">
-            <h2 class="section-title">📰 {{ $t('home.news') }}</h2>
-            <NewsList />
-        </section>
+    <section class="mb-5">
+        <h2 class="section-title">
+            📰
+            <a class="link-offset-2 link-offset-3-hover link-underline link-underline-opacity-0 link-underline-opacity-75-hover" href="/blog">{{ $t('home.news') }}</a>
+        </h2>
+        <NewsList />
+        
+    </section>
     </div>
 </template>
 
