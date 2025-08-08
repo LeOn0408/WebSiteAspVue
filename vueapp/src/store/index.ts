@@ -10,7 +10,7 @@ export interface AuthState {
 }
 
 export interface RootState {
-    preferredLocale: string;
+    preferredLocale: 'ru' | 'en';
 }
 
 export interface State extends RootState {
@@ -28,4 +28,9 @@ export default createStore<State>({
         preferredLocale: 'ru',
         auth: { isLoggedIn: false, user: null }
     } as State,
+    mutations: {
+        setPreferredLocale(state, locale: 'ru' | 'en') {
+            state.preferredLocale = locale
+        }
+    }
 });

@@ -12,12 +12,6 @@
                         <option value="ru">Русский</option>
                         <option value="en">English</option>
                     </select>
-                    <!--<a href="#" class="footer-icon">
-                        <i class="bi bi-facebook"></i>
-                    </a>
-                    <a href="#" class="footer-icon">
-                        <i class="bi bi-twitter"></i>
-                    </a>-->
                     <a href="#" class="footer-icon">
                         <i class="bi bi-github"></i>
                     </a>
@@ -32,6 +26,7 @@
     import { mapState } from 'vuex';
 
     export default defineComponent({
+        //TODO: Remake to state
         computed: mapState(['preferredLocale']),
         methods: {
             onChangeLang(event: Event) {

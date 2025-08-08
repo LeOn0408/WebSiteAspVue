@@ -23,9 +23,7 @@ export function createAxios(): AxiosInstance {
                 refreshInstance
                     .post("/refresh-token")
                     .then((result) => {
-                        console.log(result)
                         localStorage.setItem('user', JSON.stringify(result.data.user));
-                        console.log(result.data.jwtToken)
                         localStorage.setItem('token', result.data.jwtToken);
                         error.config.headers.Authorization = `Bearer ${result.data.jwtToken}`;
                         resolve(instance.request(error.config));
