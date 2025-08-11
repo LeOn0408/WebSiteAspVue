@@ -19,19 +19,19 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme).AddJw
     var authOption = new AuthOptions(builder.Configuration);
     options.TokenValidationParameters = new TokenValidationParameters
     {
-        // указывает, будет ли валидироваться издатель при валидации токена
+        // СѓРєР°Р·С‹РІР°РµС‚, Р±СѓРґРµС‚ Р»Рё РІР°Р»РёРґРёСЂРѕРІР°С‚СЊСЃСЏ РёР·РґР°С‚РµР»СЊ РїСЂРё РІР°Р»РёРґР°С†РёРё С‚РѕРєРµРЅР°
         ValidateIssuer = true,
-        // строка, представляющая издателя
+        // СЃС‚СЂРѕРєР°, РїСЂРµРґСЃС‚Р°РІР»СЏСЋС‰Р°СЏ РёР·РґР°С‚РµР»СЏ
         ValidIssuer = authOption.Issuer,
-        // будет ли валидироваться потребитель токена
+        // Р±СѓРґРµС‚ Р»Рё РІР°Р»РёРґРёСЂРѕРІР°С‚СЊСЃСЏ РїРѕС‚СЂРµР±РёС‚РµР»СЊ С‚РѕРєРµРЅР°
         ValidateAudience = true,
-        // установка потребителя токена
+        // СѓСЃС‚Р°РЅРѕРІРєР° РїРѕС‚СЂРµР±РёС‚РµР»СЏ С‚РѕРєРµРЅР°
         ValidAudience = authOption.Audience,
-        // будет ли валидироваться время существования
+        // Р±СѓРґРµС‚ Р»Рё РІР°Р»РёРґРёСЂРѕРІР°С‚СЊСЃСЏ РІСЂРµРјСЏ СЃСѓС‰РµСЃС‚РІРѕРІР°РЅРёСЏ
         ValidateLifetime = true,
-        // установка ключа безопасности
+        // СѓСЃС‚Р°РЅРѕРІРєР° РєР»СЋС‡Р° Р±РµР·РѕРїР°СЃРЅРѕСЃС‚Рё
         IssuerSigningKey = authOption.GetSymmetricSecurityKey(),
-        // валидация ключа безопасности
+        // РІР°Р»РёРґР°С†РёСЏ РєР»СЋС‡Р° Р±РµР·РѕРїР°СЃРЅРѕСЃС‚Рё
         ValidateIssuerSigningKey = true,
     };
 });
@@ -94,5 +94,6 @@ app.UseCookiePolicy(new CookiePolicyOptions
 app.UseHttpsRedirection();
 
 app.MapControllers();
+app.MapFallbackToFile("index.html");
 
 app.Run();

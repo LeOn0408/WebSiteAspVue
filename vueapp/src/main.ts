@@ -13,8 +13,6 @@ store.commit('setPreferredLocale', i18n.global.locale.value as 'ru' | 'en')
 
 const app = createApp(App);
 
-app.use(store, key);
-
 router.beforeEach(async (to, from, next) => {
     await store.dispatch('auth/init')
 
@@ -34,9 +32,8 @@ router.beforeEach(async (to, from, next) => {
     }
 })
 
-createApp(App)
-    .use(store)
-    .use(router)
-    .use(i18n)
-    .provide('logger', new Logger())
-    .mount('#app')
+app.use(router)
+app.use(store, key)
+app.use(i18n)
+app.provide('logger', new Logger())
+app.mount('#app')
