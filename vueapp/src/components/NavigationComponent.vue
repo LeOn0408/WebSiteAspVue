@@ -1,114 +1,290 @@
 <template>
-    <nav class="navbar navbar-expand-lg shadow-sm">
-        <div class="container-fluid">
+    <nav class="navbar">
+        <div class="nav-container">
             <!-- Логотип -->
-            <a class="navbar-brand d-flex align-items-center" href="/">
-                <img src="../assets/images/logo2.png" alt="Logo" width="40" height="30" class="d-inline-block align-middle me-2">
-                <span class="fw-bold">aparshukov</span>
-            </a>
-            <!-- Кнопка для раскрытия меню на маленьких экранах -->
-            <button class="navbar-toggler" type="button"
-                    data-bs-toggle="collapse"
-                    data-bs-target="#navbarNavAltMarkup"
-                    aria-controls="navbarNavAltMarkup"
-                    aria-expanded="false"
-                    aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <!-- Основное меню -->
-            <div class="collapse navbar-collapse justify-content-end" id="navbarNavAltMarkup">
-                <div class="navbar-nav">
-                    <router-link class="nav-link" :class="{ active: isActive('/') }" to="/">{{ $t('nav-menu.main') }}</router-link>
-                    <router-link class="nav-link" :class="{ active: isActive('/blog') }" to="/blog">{{ $t('nav-menu.blog') }}</router-link>
-                    <!--<router-link class="nav-link" :class="{ active: isActive('/projects') }" to="/projects">{{ $t('nav-menu.projects') }}</router-link>-->
-                    <router-link class="nav-link" :class="{ active: isActive('/about') }" to="/about">{{ $t('nav-menu.about') }}</router-link>
+            <router-link to="/" class="brand">
+                <div class="brand-logo">
+                    <img src="../assets/images/logo2.png" alt="Logo">
                 </div>
-                <!-- Кнопка входа -->
-                <div class="navbar-nav ms-3" v-if="false">
-                    <button type="button" class="btn btn-outline-light btn-sm" data-bs-toggle="modal" data-bs-target="#modalWindow">
+                <span class="brand-text">aparshukov</span>
+            </router-link>
+
+            <!-- Навигация -->
+            <div class="nav-menu">
+                <div class="nav-links">
+                    <router-link v-for="item in navItems"
+                                 :key="item.to"
+                                 :to="item.to"
+                                 class="nav-link"
+                                 :class="{ 'active': isActive(item.to) }">
+                        <span class="nav-text">{{ $t(item.text) }}</span>
+                        <span class="nav-indicator"></span>
+                    </router-link>
+                </div>
+
+                <!-- Дополнительные элементы -->
+                <div class="nav-actions" v-if="false">
+                    <button class="login-btn">
                         {{ $t('nav-menu.login') }}
                     </button>
-                    <Login></Login>
                 </div>
             </div>
+
+            <!-- Mobile Toggle -->
+            <button class="mobile-toggle" @click="toggleMobileMenu">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
         </div>
     </nav>
 </template>
 
 <script lang="ts">
-    import { defineComponent, defineAsyncComponent } from 'vue';
+    import { defineComponent, computed } from 'vue';
     import { useRoute } from 'vue-router';
 
-    const Login = defineAsyncComponent(() =>
-        import('./modal/LoginModalComponent.vue')
-    );
-
     export default defineComponent({
-        components: {
-            Login
-        },
+        name: 'AppNavbar',
         setup() {
             const route = useRoute();
+
             const isActive = (path: string) => route.path === path;
 
-            return { isActive };
+            const navItems = computed(() => [
+                { to: '/', text: 'nav-menu.main' },
+                { to: '/blog', text: 'nav-menu.blog' },
+                { to: '/about', text: 'nav-menu.about' }
+            ]);
+
+            const toggleMobileMenu = () => {
+                // Логика для мобильного меню
+                document.querySelector('.nav-menu')?.classList.toggle('active');
+            };
+
+            return { isActive, navItems, toggleMobileMenu };
         },
     });
 </script>
 
 <style scoped>
     .navbar {
-        background: linear-gradient(45deg, #2c3e50, #34495e);
-        color: #ecf0f1;
+        background: rgba(255, 255, 255, 0.95);
+        backdrop-filter: blur(20px);
+        border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+        box-shadow: 0 2px 30px rgba(0, 0, 0, 0.1);
+        position: sticky;
+        top: 0;
+        z-index: 1000;
     }
 
-    .navbar-brand {
-        font-size: 1.25rem;
-        color: #f1f1f1;
-        text-transform: uppercase;
+    .nav-container {
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 0 1.5rem;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        height: 70px;
     }
 
-        .navbar-brand:hover {
-            color: #d1d1d1;
-            text-decoration: none;
+    .brand {
+        display: flex;
+        align-items: center;
+        gap: 0.75rem;
+        text-decoration: none;
+        color: inherit;
+        transition: transform 0.3s ease;
+    }
+
+        .brand:hover {
+            transform: translateY(-1px);
         }
 
-    .nav-link {
-        color: #f1f1f1;
-        font-weight: 500;
-        transition: color 0.3s ease;
+    .brand-logo {
+        width: 40px;
+        height: 40px;
+        border-radius: 10px;
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        overflow: hidden;
     }
 
+        .brand-logo img {
+            width: 24px;
+            height: 24px;
+            filter: brightness(0) invert(1);
+        }
+
+    .brand-text {
+        font-size: 1.25rem;
+        font-weight: 800;
+        background: linear-gradient(135deg, #2c3e50 0%, #3498db 100%);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+    }
+
+    .nav-menu {
+        display: flex;
+        align-items: center;
+        margin-left: 10px;
+        gap: 2rem;
+    }
+
+    .nav-links {
+        display: flex;
+        gap: 0.5rem;
+    }
+
+    .nav-link {
+        position: relative;
+        padding: 0.75rem 1.25rem;
+        text-decoration: none;
+        color: #2c3e50;
+        font-weight: 500;
+        border-radius: 12px;
+        transition: all 0.3s ease;
+        overflow: hidden;
+    }
+
+        .nav-link::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            opacity: 0.1;
+            transition: left 0.3s ease;
+        }
+
+        .nav-link:hover::before {
+            left: 0;
+        }
+
         .nav-link:hover {
-            color: #d1d1d1;
+            color: #667eea;
         }
 
         .nav-link.active {
-            color: #ff6347 !important;
-            font-weight: bold;
-            border-bottom: 2px solid #ff6347;
+            color: #667eea;
+            background: rgba(102, 126, 234, 0.1);
+        }
+
+    .nav-indicator {
+        position: absolute;
+        bottom: 0;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 0;
+        height: 2px;
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        transition: width 0.3s ease;
+        border-radius: 1px;
+    }
+
+    .nav-link.active .nav-indicator {
+        width: 20px;
+    }
+
+    .login-btn {
+        padding: 0.5rem 1.5rem;
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        color: white;
+        border: none;
+        border-radius: 25px;
+        font-weight: 500;
+        transition: all 0.3s ease;
+        cursor: pointer;
+    }
+
+        .login-btn:hover {
+            transform: translateY(-1px);
+            box-shadow: 0 5px 15px rgba(102, 126, 234, 0.3);
+        }
+
+    .mobile-toggle {
+        display: none;
+        flex-direction: column;
+        gap: 4px;
+        background: none;
+        border: none;
+        cursor: pointer;
+        padding: 0.5rem;
+    }
+
+        .mobile-toggle span {
+            width: 20px;
+            height: 2px;
+            background: #2c3e50;
+            transition: all 0.3s ease;
+            border-radius: 1px;
+        }
+
+    /* Адаптивность */
+    @media (max-width: 768px) {
+        .nav-container {
+            padding: 0 1rem;
+        }
+
+        .mobile-toggle {
+            display: flex;
+        }
+
+        .nav-menu {
+            position: fixed;
+            top: 70px;
+            left: 0;
+            width: 100%;
+            background: white;
+            flex-direction: column;
+            padding: 1rem;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+            transform: translateY(-100%);
+            opacity: 0;
+            visibility: hidden;
             transition: all 0.3s ease;
         }
 
-    .btn-outline-light {
-        border-color: #f1f1f1;
-        color: #f1f1f1;
-        transition: all 0.3s ease;
-    }
+            .nav-menu.active {
+                transform: translateY(0);
+                opacity: 1;
+                visibility: visible;
+            }
 
-    .btn-outline-light:hover {
-        background-color: #f1f1f1;
-        color: #212529;
-        border-color: #f1f1f1;
-    }
-
-    @media (max-width: 768px) {
-        .navbar-brand {
-            font-size: 1rem;
+        .nav-links {
+            flex-direction: column;
+            width: 100%;
         }
 
         .nav-link {
-            font-size: 0.875rem;
+            padding: 1rem;
+            border-radius: 8px;
+            justify-content: center;
         }
+
+        .brand-text {
+            font-size: 1.1rem;
+        }
+    }
+
+    @media (max-width: 480px) {
+        .nav-container {
+            height: 60px;
+        }
+
+        .brand-logo {
+            width: 35px;
+            height: 35px;
+        }
+
+            .brand-logo img {
+                width: 20px;
+                height: 20px;
+            }
     }
 </style>

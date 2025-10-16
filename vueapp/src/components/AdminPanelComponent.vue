@@ -22,8 +22,6 @@
     export default defineComponent({
         data() {
             return {
-                name: '',
-                /*isLoggedIn: *//*true*//*,*/
             }
         },
         methods: {
